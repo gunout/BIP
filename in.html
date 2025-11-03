@@ -1,0 +1,2635 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blockchain Intelligence Pro - Cyberpunk Edition</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap');
+        
+        :root {
+            --primary: #00FFFF;
+            --primary-dark: #00CCCC;
+            --accent: #FF00FF;
+            --accent-dark: #CC00CC;
+            --dark-bg: #050A15;
+            --dark-card: #0A1428;
+            --dark-border: #1A2F4F;
+            --text-light: #E0F7FF;
+            --text-gray: #8BB8E8;
+            --success: #00FF88;
+            --warning: #FFAA00;
+            --danger: #FF0055;
+            --neon-glow: 0 0 10px #00FFFF, 0 0 20px #00FFFF, 0 0 30px #00FFFF;
+            --neon-glow-accent: 0 0 10px #FF00FF, 0 0 20px #FF00FF, 0 0 30px #FF00FF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+            line-height: 1.6;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Animated background */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(rgba(0, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 20px 20px;
+            z-index: -1;
+            animation: grid-move 20s linear infinite;
+        }
+
+        @keyframes grid-move {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(20px, 20px); }
+        }
+
+        /* Glitch effect */
+        .glitch {
+            position: relative;
+            color: var(--primary);
+            font-size: 2.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            text-shadow: var(--neon-glow);
+            letter-spacing: 2px;
+            z-index: 1;
+        }
+
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--dark-bg);
+            overflow: hidden;
+        }
+
+        .glitch::before {
+            left: 2px;
+            text-shadow: -2px 0 #FF00FF;
+            animation: glitch-anim-1 2s infinite linear alternate-reverse;
+        }
+
+        .glitch::after {
+            left: -2px;
+            text-shadow: -2px 0 #00FFFF, 2px 2px #FF00FF;
+            animation: glitch-anim-2 3s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch-anim-1 {
+            0% { clip: rect(42px, 9999px, 44px, 0); }
+            5% { clip: rect(12px, 9999px, 59px, 0); }
+            10% { clip: rect(48px, 9999px, 29px, 0); }
+            15% { clip: rect(42px, 9999px, 73px, 0); }
+            20% { clip: rect(63px, 9999px, 27px, 0); }
+            25% { clip: rect(34px, 9999px, 55px, 0); }
+            30% { clip: rect(86px, 9999px, 73px, 0); }
+            35% { clip: rect(20px, 9999px, 20px, 0); }
+            40% { clip: rect(26px, 9999px, 60px, 0); }
+            45% { clip: rect(25px, 9999px, 66px, 0); }
+            50% { clip: rect(57px, 9999px, 98px, 0); }
+            55% { clip: rect(5px, 9999px, 46px, 0); }
+            60% { clip: rect(82px, 9999px, 31px, 0); }
+            65% { clip: rect(54px, 9999px, 27px, 0); }
+            70% { clip: rect(28px, 9999px, 99px, 0); }
+            75% { clip: rect(45px, 9999px, 69px, 0); }
+            80% { clip: rect(23px, 9999px, 85px, 0); }
+            85% { clip: rect(54px, 9999px, 84px, 0); }
+            90% { clip: rect(45px, 9999px, 47px, 0); }
+            95% { clip: rect(37px, 9999px, 20px, 0); }
+            100% { clip: rect(4px, 9999px, 91px, 0); }
+        }
+
+        @keyframes glitch-anim-2 {
+            0% { clip: rect(65px, 9999px, 100px, 0); }
+            5% { clip: rect(52px, 9999px, 74px, 0); }
+            10% { clip: rect(79px, 9999px, 85px, 0); }
+            15% { clip: rect(75px, 9999px, 5px, 0); }
+            20% { clip: rect(67px, 9999px, 61px, 0); }
+            25% { clip: rect(14px, 9999px, 79px, 0); }
+            30% { clip: rect(1px, 9999px, 66px, 0); }
+            35% { clip: rect(86px, 9999px, 30px, 0); }
+            40% { clip: rect(23px, 9999px, 98px, 0); }
+            45% { clip: rect(85px, 9999px, 72px, 0); }
+            50% { clip: rect(71px, 9999px, 75px, 0); }
+            55% { clip: rect(2px, 9999px, 48px, 0); }
+            60% { clip: rect(30px, 9999px, 16px, 0); }
+            65% { clip: rect(59px, 9999px, 50px, 0); }
+            70% { clip: rect(41px, 9999px, 62px, 0); }
+            75% { clip: rect(2px, 9999px, 82px, 0); }
+            80% { clip: rect(47px, 9999px, 73px, 0); }
+            85% { clip: rect(3px, 9999px, 27px, 0); }
+            90% { clip: rect(26px, 9999px, 55px, 0); }
+            95% { clip: rect(42px, 9999px, 97px, 0); }
+            100% { clip: rect(38px, 9999px, 49px, 0); }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 10px;
+        }
+
+        /* Header Styles */
+        .header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            padding: 1.5rem 1rem;
+            background: linear-gradient(135deg, rgba(0, 20, 40, 0.8) 0%, rgba(0, 40, 80, 0.8) 100%);
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.2), transparent);
+            animation: scan 8s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .main-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .security-badges {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .badge::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .badge:hover::before {
+            left: 100%;
+        }
+
+        .badge-security {
+            background: linear-gradient(45deg, var(--primary), var(--primary-dark));
+            box-shadow: 0 0 10px var(--primary);
+        }
+
+        .badge-realtime {
+            background: linear-gradient(45deg, #00AAFF, #0066CC);
+            box-shadow: 0 0 10px #00AAFF;
+        }
+
+        /* Navigation - RESPONSIVE SANS SCROLLBAR */
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            background-color: var(--dark-card);
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+            border: 1px solid var(--dark-border);
+            padding: 5px;
+            gap: 5px;
+        }
+
+        .tab {
+            padding: 12px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+            position: relative;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 14px;
+            flex: 1;
+            min-width: 120px;
+            text-align: center;
+            border-radius: 6px;
+        }
+
+        .tab::before {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            transition: width 0.3s ease;
+        }
+
+        .tab:hover {
+            background-color: rgba(0, 255, 255, 0.1);
+        }
+
+        .tab.active {
+            background-color: rgba(0, 255, 255, 0.2);
+            color: var(--primary);
+        }
+
+        .tab.active::before {
+            width: 100%;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Metrics Grid */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 1.5rem;
+        }
+
+        .metric-card {
+            background: var(--dark-card);
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid var(--primary);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .metric-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 255, 255, 0.1) 0%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .metric-card:hover::before {
+            opacity: 1;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+        }
+
+        .metric-title {
+            font-size: 12px;
+            color: var(--text-gray);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .metric-value {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-family: 'Orbitron', sans-serif;
+            color: var(--primary);
+        }
+
+        .metric-change {
+            font-size: 11px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .positive {
+            color: var(--success);
+        }
+
+        .negative {
+            color: var(--danger);
+        }
+
+        /* Browser Window */
+        .browser-window {
+            border: 2px solid var(--dark-border);
+            border-radius: 8px;
+            background: var(--dark-card);
+            margin: 15px 0;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+            position: relative;
+        }
+
+        .browser-window::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 255, 255, 0.05) 0%, transparent 100%);
+            pointer-events: none;
+        }
+
+        .browser-header {
+            background: var(--dark-card);
+            padding: 10px 15px;
+            border-radius: 6px 6px 0 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid var(--dark-border);
+        }
+
+        .browser-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .browser-button {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            position: relative;
+        }
+
+        .browser-button::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .browser-button:hover::after {
+            width: 100%;
+            height: 100%;
+        }
+
+        .browser-red { 
+            background: var(--danger);
+            box-shadow: 0 0 5px var(--danger);
+        }
+        .browser-yellow { 
+            background: var(--warning);
+            box-shadow: 0 0 5px var(--warning);
+        }
+        .browser-green { 
+            background: var(--success);
+            box-shadow: 0 0 5px var(--success);
+        }
+
+        .browser-title {
+            color: var(--text-light);
+            font-size: 12px;
+            margin-left: 10px;
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .browser-content {
+            background: white;
+            border-radius: 0 0 6px 6px;
+            overflow: hidden;
+            min-height: 250px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .browser-placeholder {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100%;
+            color: #666;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .browser-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+            color: #ccc;
+        }
+
+        .browser-footer {
+            background: #0A1428;
+            padding: 8px;
+            text-align: center;
+            font-size: 11px;
+            color: var(--primary);
+            border-top: 1px solid var(--dark-border);
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Chart Container */
+        .chart-container {
+            position: relative;
+            height: 100%;
+            width: 100%;
+            padding: 10px;
+        }
+
+        /* Widget Grid */
+        .widget-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Control Panel */
+        .control-panel {
+            background: var(--dark-card);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+            border: 1px solid var(--dark-border);
+        }
+
+        .control-title {
+            font-size: 16px;
+            margin-bottom: 15px;
+            color: var(--primary);
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .mode-selector {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .mode-option {
+            padding: 8px 15px;
+            background: rgba(0, 255, 255, 0.1);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+            position: relative;
+            overflow: hidden;
+            font-size: 13px;
+        }
+
+        .mode-option::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .mode-option:hover::before {
+            left: 100%;
+        }
+
+        .mode-option:hover {
+            background: rgba(0, 255, 255, 0.2);
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+        }
+
+        .mode-option.active {
+            background: rgba(0, 255, 255, 0.3);
+            border-color: var(--primary);
+            color: var(--primary);
+            box-shadow: 0 0 10px var(--primary);
+        }
+
+        .control-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 13px;
+        }
+
+        .btn::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, var(--primary), var(--primary-dark));
+            color: var(--dark-bg);
+            box-shadow: 0 0 10px var(--primary);
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 0 15px var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: rgba(0, 255, 255, 0.1);
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(0, 255, 255, 0.2);
+            box-shadow: 0 0 10px var(--primary);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 15px;
+            color: var(--text-gray);
+            font-size: 12px;
+            border-top: 1px solid var(--dark-border);
+            position: relative;
+        }
+
+        .footer::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            animation: scan 8s linear infinite;
+        }
+
+        /* Dashboard Grid pour la vue complète */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .dashboard-widget {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dashboard-widget::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 255, 255, 0.05) 0%, transparent 100%);
+            pointer-events: none;
+        }
+
+        .widget-large {
+            grid-column: span 1;
+        }
+
+        .widget-full {
+            grid-column: span 1;
+        }
+
+        .widget-title {
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .widget-content {
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mempool-graph {
+            height: 300px;
+        }
+
+        /* Table styles for recent blocks */
+        .blocks-container {
+            width: 100%;
+            height: 250px;
+            overflow-y: auto;
+            background-color: #0A1428;
+            border-radius: 8px;
+            padding: 10px;
+            box-shadow: inset 0 0 10px rgba(0, 255, 255, 0.2);
+            border: 1px solid var(--primary);
+        }
+
+        .blocks-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            font-size: 12px;
+        }
+
+        .blocks-table th {
+            background-color: #0A1428;
+            color: var(--primary);
+            padding: 8px;
+            text-align: left;
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 2px solid var(--primary);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            font-size: 11px;
+        }
+
+        .blocks-table td {
+            padding: 8px;
+            border-bottom: 1px solid var(--dark-border);
+            color: var(--text-light);
+        }
+
+        .blocks-table tr {
+            transition: all 0.3s ease;
+        }
+
+        .blocks-table tr:hover {
+            background-color: rgba(0, 255, 255, 0.1);
+            transform: translateX(3px);
+        }
+
+        .blocks-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .block-height {
+            color: var(--primary);
+            font-weight: bold;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .block-time {
+            color: var(--text-gray);
+            font-size: 0.8rem;
+        }
+
+        .block-size {
+            color: var(--success);
+        }
+
+        .block-tx {
+            color: var(--text-light);
+        }
+
+        .block-pool {
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        /* Refresh indicator */
+        .refresh-indicator {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(0, 255, 255, 0.2);
+            border: 1px solid var(--primary);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .refresh-indicator.active {
+            opacity: 1;
+            animation: pulse 1s infinite;
+        }
+
+        /* Refresh selector */
+        .refresh-selector {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+
+        .refresh-options {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
+
+        .refresh-option {
+            padding: 5px 10px;
+            background: rgba(0, 255, 255, 0.1);
+            border: 1px solid transparent;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .refresh-option:hover {
+            background: rgba(0, 255, 255, 0.2);
+        }
+
+        .refresh-option.active {
+            background: rgba(0, 255, 255, 0.3);
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        /* Loading animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(0, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--primary);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Pulse animation */
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(0, 255, 255, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(0, 255, 255, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(0, 255, 255, 0);
+            }
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--dark-bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Debug console */
+        .debug-console {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            color: var(--primary);
+            padding: 10px;
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 11px;
+            max-width: 250px;
+            max-height: 120px;
+            overflow-y: auto;
+            z-index: 1000;
+            display: none;
+        }
+
+        .debug-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--primary);
+            color: var(--dark-bg);
+            border: none;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 1001;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+
+        /* RESPONSIVE DESIGN */
+        @media (max-width: 768px) {
+            .container {
+                padding: 5px;
+            }
+            
+            .main-title {
+                font-size: 1.8rem;
+                letter-spacing: 1px;
+            }
+            
+            .header {
+                padding: 1rem 0.5rem;
+                margin-bottom: 1rem;
+            }
+            
+            .security-badges {
+                gap: 8px;
+            }
+            
+            .badge {
+                font-size: 11px;
+                padding: 5px 10px;
+            }
+            
+            .tabs {
+                padding: 3px;
+                gap: 3px;
+            }
+            
+            .tab {
+                padding: 10px 12px;
+                font-size: 12px;
+                min-width: 100px;
+                letter-spacing: 0.5px;
+            }
+            
+            .metrics-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+            
+            .metric-card {
+                padding: 12px;
+            }
+            
+            .metric-value {
+                font-size: 18px;
+            }
+            
+            .control-panel {
+                padding: 12px;
+            }
+            
+            .control-title {
+                font-size: 14px;
+            }
+            
+            .mode-option {
+                padding: 6px 12px;
+                font-size: 12px;
+            }
+            
+            .btn {
+                padding: 8px 12px;
+                font-size: 12px;
+            }
+            
+            .browser-window {
+                margin: 10px 0;
+            }
+            
+            .browser-content {
+                min-height: 200px;
+            }
+            
+            .widget-grid {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+            
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+            
+            .widget-title {
+                font-size: 12px;
+            }
+            
+            .widget-content {
+                height: 180px;
+            }
+            
+            .mempool-graph {
+                height: 250px;
+            }
+            
+            .blocks-container {
+                height: 200px;
+                padding: 8px;
+            }
+            
+            .blocks-table {
+                font-size: 11px;
+            }
+            
+            .blocks-table th {
+                padding: 6px;
+                font-size: 10px;
+            }
+            
+            .blocks-table td {
+                padding: 6px;
+            }
+            
+            .refresh-selector {
+                font-size: 12px;
+            }
+            
+            .refresh-option {
+                padding: 4px 8px;
+                font-size: 11px;
+            }
+            
+            .footer {
+                font-size: 11px;
+                padding: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-title {
+                font-size: 1.5rem;
+            }
+            
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .tab {
+                padding: 8px 10px;
+                font-size: 11px;
+                min-width: 80px;
+            }
+            
+            .browser-title {
+                font-size: 10px;
+            }
+            
+            .browser-footer {
+                font-size: 10px;
+            }
+            
+            .widget-content {
+                height: 150px;
+            }
+            
+            .mempool-graph {
+                height: 200px;
+            }
+            
+            .blocks-container {
+                height: 180px;
+            }
+            
+            .blocks-table {
+                font-size: 10px;
+            }
+            
+            .blocks-table th,
+            .blocks-table td {
+                padding: 4px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="main-title glitch" data-text="🔗 BLOCKCHAIN INTELLIGENCE PRO">🔗 BLOCKCHAIN INTELLIGENCE PRO</h1>
+            <div class="security-badges">
+                <div class="badge badge-security">
+                    <i class="fas fa-shield-alt"></i> ÉMULATION NAVIGATEUR ACTIVÉE
+                </div>
+                <div class="badge badge-realtime">
+                    <i class="fas fa-bolt"></i> TEMPS RÉEL
+                </div>
+            </div>
+            <p>Dashboard avancé avec émulation navigateur pour l'analyse blockchain</p>
+        </header>
+
+        <div class="control-panel">
+            <h2 class="control-title">⚙️ Configuration d'Émulation</h2>
+            <div class="mode-selector">
+                <div class="mode-option active" data-mode="screenshot">
+                    <i class="fas fa-camera"></i> Mode Capture
+                </div>
+                <div class="mode-option" data-mode="interactive">
+                    <i class="fas fa-chart-line"></i> Mode Interactif
+                </div>
+                <div class="mode-option" data-mode="api">
+                    <i class="fas fa-code"></i> Mode API
+                </div>
+            </div>
+            <div class="control-actions">
+                <button class="btn btn-primary" id="refreshBtn">
+                    <i class="fas fa-sync-alt"></i> Actualiser
+                </button>
+                <button class="btn btn-secondary" id="autoRefreshToggle">
+                    <i class="fas fa-redo"></i> Auto: <span id="autoRefreshStatus">Désactivé</span>
+                </button>
+            </div>
+            <div class="refresh-selector">
+                <span>Fréquence:</span>
+                <div class="refresh-options">
+                    <div class="refresh-option" data-interval="10">10s</div>
+                    <div class="refresh-option" data-interval="30">30s</div>
+                    <div class="refresh-option active" data-interval="60">60s</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tabs">
+            <div class="tab active" data-tab="dashboard">🏠 Dashboard</div>
+            <div class="tab" data-tab="mempool">📊 Mempool</div>
+            <div class="tab" data-tab="fees">💰 Frais</div>
+            <div class="tab" data-tab="lightning">⚡ Lightning</div>
+            <div class="tab" data-tab="mining">🔨 Mining</div>
+            <div class="tab" data-tab="fullview">🌐 Vue Complète</div>
+        </div>
+
+        <!-- Dashboard Principal -->
+        <div class="tab-content active" id="dashboard">
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-title">🔄 Dernier Bloc</div>
+                    <div class="metric-value" id="blockHeight">#824,543</div>
+                    <div class="metric-change positive">
+                        <i class="fas fa-arrow-up"></i> 2,143 tx
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-title">💰 Prix Bitcoin</div>
+                    <div class="metric-value" id="bitcoinPrice">$61,427.85</div>
+                    <div class="metric-change positive">
+                        <i class="fas fa-arrow-up"></i> +2.5%
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-title">⏳ En Attente</div>
+                    <div class="metric-value" id="mempoolCount">12,458</div>
+                    <div class="metric-change negative">
+                        <i class="fas fa-arrow-up"></i> +15.2%
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-title">⚡ Frais Rapides</div>
+                    <div class="metric-value" id="fastFee">18 sat/vB</div>
+                    <div class="metric-change">
+                        ~10 min
+                    </div>
+                </div>
+            </div>
+
+            <div class="widget-grid">
+                <div>
+                    <h3>⏳ Mempool en Temps Réel</h3>
+                    <div class="browser-window">
+                        <div class="browser-header">
+                            <div class="browser-buttons">
+                                <div class="browser-button browser-red"></div>
+                                <div class="browser-button browser-yellow"></div>
+                                <div class="browser-button browser-green"></div>
+                            </div>
+                            <div class="browser-title">Mempool Live</div>
+                        </div>
+                        <div class="browser-content">
+                            <div class="chart-container">
+                                <canvas id="mempoolChart"></canvas>
+                            </div>
+                            <div class="browser-footer">
+                                📊 Mempool - Actualisé: <span id="mempoolTime">00:00:00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3>⚡ Difficulté du Réseau</h3>
+                    <div class="browser-window">
+                        <div class="browser-header">
+                            <div class="browser-buttons">
+                                <div class="browser-button browser-red"></div>
+                                <div class="browser-button browser-yellow"></div>
+                                <div class="browser-button browser-green"></div>
+                            </div>
+                            <div class="browser-title">Difficulté Réseau</div>
+                        </div>
+                        <div class="browser-content">
+                            <div class="chart-container">
+                                <canvas id="difficultyChart"></canvas>
+                            </div>
+                            <div class="browser-footer">
+                                ⚡ Difficulté - Actualisé: <span id="difficultyTime">00:00:00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mempool Temps Réel -->
+        <div class="tab-content" id="mempool">
+            <h2>📊 Mempool Temps Réel</h2>
+            <div class="browser-window">
+                <div class="browser-header">
+                    <div class="browser-buttons">
+                        <div class="browser-button browser-red"></div>
+                        <div class="browser-button browser-yellow"></div>
+                        <div class="browser-button browser-green"></div>
+                    </div>
+                    <div class="browser-title">Mempool Graph</div>
+                </div>
+                <div class="browser-content">
+                    <div class="chart-container">
+                        <canvas id="fullMempoolChart"></canvas>
+                    </div>
+                    <div class="browser-footer">
+                        🌐 Mempool - Actualisé: <span id="fullMempoolTime">00:00:00</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Analyse des Frais -->
+        <div class="tab-content" id="fees">
+            <h2>💰 Analyse des Frais</h2>
+            <div class="browser-window">
+                <div class="browser-header">
+                    <div class="browser-buttons">
+                        <div class="browser-button browser-red"></div>
+                        <div class="browser-button browser-yellow"></div>
+                        <div class="browser-button browser-green"></div>
+                    </div>
+                    <div class="browser-title">Fees Analysis</div>
+                </div>
+                <div class="browser-content">
+                    <div class="chart-container">
+                        <canvas id="feesChart"></canvas>
+                    </div>
+                    <div class="browser-footer">
+                        💰 Frais - Actualisé: <span id="feesTime">00:00:00</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Réseau Lightning -->
+        <div class="tab-content" id="lightning">
+            <h2>⚡ Réseau Lightning</h2>
+            <div class="browser-window">
+                <div class="browser-header">
+                    <div class="browser-buttons">
+                        <div class="browser-button browser-red"></div>
+                        <div class="browser-button browser-yellow"></div>
+                        <div class="browser-button browser-green"></div>
+                    </div>
+                    <div class="browser-title">Lightning Network</div>
+                </div>
+                <div class="browser-content">
+                    <div class="chart-container">
+                        <canvas id="lightningChart"></canvas>
+                    </div>
+                    <div class="browser-footer">
+                        ⚡ Lightning - Actualisé: <span id="lightningTime">00:00:00</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mining & Difficulté -->
+        <div class="tab-content" id="mining">
+            <h2>🔨 Mining & Difficulté</h2>
+            <div class="widget-grid">
+                <div>
+                    <h3>⛏️ Activité Minière</h3>
+                    <div class="browser-window">
+                        <div class="browser-header">
+                            <div class="browser-buttons">
+                                <div class="browser-button browser-red"></div>
+                                <div class="browser-button browser-yellow"></div>
+                                <div class="browser-button browser-green"></div>
+                            </div>
+                            <div class="browser-title">Mining Activity</div>
+                        </div>
+                        <div class="browser-content">
+                            <div class="chart-container">
+                                <canvas id="miningChart"></canvas>
+                            </div>
+                            <div class="browser-footer">
+                                ⛏️ Mining - Actualisé: <span id="miningTime">00:00:00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3>📊 Derniers Blocs</h3>
+                    <div class="browser-window">
+                        <div class="browser-header">
+                            <div class="browser-buttons">
+                                <div class="browser-button browser-red"></div>
+                                <div class="browser-button browser-yellow"></div>
+                                <div class="browser-button browser-green"></div>
+                            </div>
+                            <div class="browser-title">Recent Blocks</div>
+                        </div>
+                        <div class="browser-content">
+                            <div class="chart-container">
+                                <canvas id="blocksChart"></canvas>
+                            </div>
+                            <div class="browser-footer">
+                                📊 Blocs - Actualisé: <span id="blocksTime">00:00:00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Vue Complète -->
+        <div class="tab-content" id="fullview">
+            <h2>🌐 Vue Complète</h2>
+            <div class="browser-window">
+                <div class="browser-header">
+                    <div class="browser-buttons">
+                        <div class="browser-button browser-red"></div>
+                        <div class="browser-button browser-yellow"></div>
+                        <div class="browser-button browser-green"></div>
+                    </div>
+                    <div class="browser-title">Full Dashboard</div>
+                </div>
+                <div class="browser-content">
+                    <div class="dashboard-grid">
+                        <!-- Mempool Graph -->
+                        <div class="dashboard-widget widget-full mempool-graph">
+                            <div class="widget-title">
+                                <i class="fas fa-chart-area"></i> Mempool en Temps Réel
+                            </div>
+                            <div class="widget-content">
+                                <canvas id="dashboardMempoolChart"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- Métriques principales -->
+                        <div class="dashboard-widget">
+                            <div class="widget-title">
+                                <i class="fas fa-cube"></i> Dernier Bloc
+                            </div>
+                            <div class="widget-content" style="flex-direction: column; justify-content: center;">
+                                <div style="font-size: 20px; font-weight: bold; color: #00FFFF;">#824,543</div>
+                                <div style="font-size: 12px; color: #666;">2,143 transactions</div>
+                            </div>
+                        </div>
+
+                        <div class="dashboard-widget">
+                            <div class="widget-title">
+                                <i class="fas fa-bolt"></i> Frais Rapides
+                            </div>
+                            <div class="widget-content" style="flex-direction: column; justify-content: center;">
+                                <div style="font-size: 20px; font-weight: bold; color: #00FF88;">18 sat/vB</div>
+                                <div style="font-size: 12px; color: #666;">~10 minutes</div>
+                            </div>
+                        </div>
+
+                        <div class="dashboard-widget">
+                            <div class="widget-title">
+                                <i class="fas fa-layer-group"></i> Transactions
+                            </div>
+                            <div class="widget-content" style="flex-direction: column; justify-content: center;">
+                                <div style="font-size: 20px; font-weight: bold; color: #00AAFF;">12,458</div>
+                                <div style="font-size: 12px; color: #666;">En attente</div>
+                            </div>
+                        </div>
+
+                        <div class="dashboard-widget">
+                            <div class="widget-title">
+                                <i class="fas fa-money-bill-wave"></i> Prix Bitcoin
+                            </div>
+                            <div class="widget-content" style="flex-direction: column; justify-content: center;">
+                                <div style="font-size: 20px; font-weight: bold; color: #00FFFF;">$61,427</div>
+                                <div style="font-size: 12px; color: #00FF88;">+2.5%</div>
+                            </div>
+                        </div>
+
+                        <!-- Graphique des frais -->
+                        <div class="dashboard-widget">
+                            <div class="widget-title">
+                                <i class="fas fa-chart-bar"></i> Analyse des Frais
+                            </div>
+                            <div class="widget-content">
+                                <canvas id="dashboardFeesChart"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- Difficulté du réseau -->
+                        <div class="dashboard-widget">
+                            <div class="widget-title">
+                                <i class="fas fa-mountain"></i> Difficulté du Réseau
+                            </div>
+                            <div class="widget-content">
+                                <canvas id="dashboardDifficultyChart"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- Activité minière -->
+                        <div class="dashboard-widget">
+                            <div class="widget-title">
+                                <i class="fas fa-hard-hat"></i> Pools Miniers
+                            </div>
+                            <div class="widget-content">
+                                <canvas id="dashboardMiningChart"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- Réseau Lightning -->
+                        <div class="dashboard-widget">
+                            <div class="widget-title">
+                                <i class="fas fa-bolt"></i> Réseau Lightning
+                            </div>
+                            <div class="widget-content">
+                                <canvas id="dashboardLightningChart"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- Derniers blocs -->
+                        <div class="dashboard-widget widget-full">
+                            <div class="widget-title">
+                                <i class="fas fa-cubes"></i> Derniers Blocs Minés
+                            </div>
+                            <div class="blocks-container">
+                                <table class="blocks-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Hauteur</th>
+                                            <th>Transactions</th>
+                                            <th>Taille</th>
+                                            <th>Temps</th>
+                                            <th>Pool</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="recentBlocksTable">
+                                        <!-- Les blocs seront ajoutés dynamiquement -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="browser-footer">
+                        🌐 Dashboard - Actualisé: <span id="fullViewTime">00:00:00</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p><strong>🔒 Blockchain Intelligence Pro v5.0</strong> | Émulation: <span id="emulationStatus">ACTIVE</span> | MAJ: <span id="lastUpdate">00:00:00</span></p>
+        </footer>
+    </div>
+
+    <!-- Refresh indicator -->
+    <div class="refresh-indicator" id="refreshIndicator">
+        <i class="fas fa-sync-alt loading"></i>
+    </div>
+
+    <!-- Debug console -->
+    <button class="debug-toggle" id="debugToggle">D</button>
+    <div class="debug-console" id="debugConsole"></div>
+
+    <script>
+        // Configuration et état de l'application
+        const state = {
+            autoRefresh: false,
+            currentMode: 'screenshot',
+            lastUpdate: new Date(),
+            refreshInterval: 60000, // 60 secondes par défaut
+            refreshTimer: null,
+            data: {
+                blockHeight: 824543,
+                bitcoinPrice: 61427.85,
+                mempoolCount: 12458,
+                fastFee: 18
+            },
+            charts: {
+                mempool: null,
+                difficulty: null,
+                fees: null,
+                lightning: null,
+                fullMempool: null,
+                mining: null,
+                blocks: null,
+                dashboardMempool: null,
+                dashboardFees: null,
+                dashboardDifficulty: null,
+                dashboardMining: null,
+                dashboardLightning: null
+            }
+        };
+
+        // Debug console
+        const debugConsole = document.getElementById('debugConsole');
+        const debugToggle = document.getElementById('debugToggle');
+        
+        debugToggle.addEventListener('click', function() {
+            debugConsole.style.display = debugConsole.style.display === 'block' ? 'none' : 'block';
+        });
+        
+        function debugLog(message) {
+            const timestamp = new Date().toLocaleTimeString();
+            debugConsole.innerHTML += `<div>[${timestamp}] ${message}</div>`;
+            debugConsole.scrollTop = debugConsole.scrollHeight;
+            console.log(message);
+        }
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', function() {
+            debugLog("Initialisation de l'application");
+            
+            initializeTabs();
+            initializeModeSelector();
+            initializeRefreshOptions();
+            initializeCharts();
+            updateMetrics();
+            initializeDashboardCharts();
+            
+            // Forcer le remplissage du tableau des blocs
+            debugLog("Remplissage initial du tableau des blocs");
+            populateRecentBlocks();
+            
+            setInterval(updateTimestamps, 1000);
+            
+            // Configuration de l'auto-refresh
+            document.getElementById('autoRefreshToggle').addEventListener('click', toggleAutoRefresh);
+            document.getElementById('refreshBtn').addEventListener('click', refreshData);
+            
+            debugLog("Initialisation terminée");
+        });
+
+        // Initialisation des options de rafraîchissement
+        function initializeRefreshOptions() {
+            const refreshOptions = document.querySelectorAll('.refresh-option');
+            refreshOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    refreshOptions.forEach(o => o.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const interval = parseInt(this.getAttribute('data-interval')) * 1000;
+                    state.refreshInterval = interval;
+                    
+                    debugLog(`Fréquence de rafraîchissement changée à ${interval/1000} secondes`);
+                    
+                    // Si l'auto-refresh est déjà actif, redémarrer avec la nouvelle fréquence
+                    if (state.autoRefresh) {
+                        stopAutoRefresh();
+                        startAutoRefresh();
+                    }
+                });
+            });
+        }
+
+        // Gestion des onglets
+        function initializeTabs() {
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // Désactiver tous les onglets
+                    tabs.forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                    
+                    // Activer l'onglet sélectionné
+                    this.classList.add('active');
+                    const tabId = this.getAttribute('data-tab');
+                    document.getElementById(tabId).classList.add('active');
+                    
+                    debugLog(`Onglet activé: ${tabId}`);
+                    
+                    // Re-initialiser les graphiques pour l'onglet actif
+                    if (tabId === 'mempool') {
+                        initializeFullMempoolChart();
+                    } else if (tabId === 'mining') {
+                        initializeMiningChart();
+                        initializeBlocksChart();
+                    } else if (tabId === 'fullview') {
+                        initializeDashboardCharts();
+                        // S'assurer que les blocs récents sont affichés
+                        debugLog("Rechargement des blocs récents pour l'onglet Vue Complète");
+                        setTimeout(populateRecentBlocks, 100);
+                    }
+                });
+            });
+        }
+
+        // Gestion du sélecteur de mode
+        function initializeModeSelector() {
+            const modeOptions = document.querySelectorAll('.mode-option');
+            modeOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    modeOptions.forEach(o => o.classList.remove('active'));
+                    this.classList.add('active');
+                    state.currentMode = this.getAttribute('data-mode');
+                    updateDisplayMode();
+                });
+            });
+        }
+
+        // Mise à jour de l'affichage selon le mode sélectionné
+        function updateDisplayMode() {
+            const modeIndicators = document.querySelectorAll('.browser-footer');
+            modeIndicators.forEach(indicator => {
+                const timeElement = indicator.querySelector('span');
+                if (timeElement) {
+                    const baseText = indicator.textContent.split(' - ')[0];
+                    indicator.innerHTML = `${baseText} - Mode: ${state.currentMode.toUpperCase()} - Actualisé: ${timeElement.textContent}`;
+                }
+            });
+        }
+
+        // Initialisation des graphiques du dashboard principal
+        function initializeCharts() {
+            // Graphique Mempool
+            const mempoolCtx = document.getElementById('mempoolChart').getContext('2d');
+            state.charts.mempool = new Chart(mempoolCtx, {
+                type: 'line',
+                data: {
+                    labels: Array.from({length: 24}, (_, i) => `${i}h`),
+                    datasets: [{
+                        label: 'Taille Mempool (tx)',
+                        data: generateRandomData(24, 5000, 20000),
+                        borderColor: '#00FFFF',
+                        backgroundColor: 'rgba(0, 255, 255, 0.1)',
+                        borderWidth: 2,
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        title: {
+                            display: true,
+                            text: 'Évolution du Mempool (24h)',
+                            color: '#333'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(0,0,0,0.1)'
+                            },
+                            ticks: {
+                                color: '#666'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            },
+                            ticks: {
+                                color: '#666'
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Graphique Difficulté
+            const difficultyCtx = document.getElementById('difficultyChart').getContext('2d');
+            state.charts.difficulty = new Chart(difficultyCtx, {
+                type: 'line',
+                data: {
+                    labels: Array.from({length: 12}, (_, i) => `Bloc ${i*1000}`),
+                    datasets: [{
+                        label: 'Difficulté',
+                        data: generateRandomData(12, 70, 85),
+                        borderColor: '#00CCCC',
+                        backgroundColor: 'rgba(0, 204, 204, 0.1)',
+                        borderWidth: 2,
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        title: {
+                            display: true,
+                            text: 'Évolution de la Difficulté',
+                            color: '#333'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            grid: {
+                                color: 'rgba(0,0,0,0.1)'
+                            },
+                            ticks: {
+                                color: '#666'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            },
+                            ticks: {
+                                color: '#666'
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Graphique Frais
+            const feesCtx = document.getElementById('feesChart').getContext('2d');
+            state.charts.fees = new Chart(feesCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['1-2', '3-4', '5-8', '9-16', '17-32', '33-64', '65-128', '129-256', '257+'],
+                    datasets: [{
+                        label: 'Transactions',
+                        data: generateRandomData(9, 100, 5000),
+                        backgroundColor: '#00FFFF',
+                        borderColor: '#00CCCC',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        title: {
+                            display: true,
+                            text: 'Distribution des Transactions par Frais (sat/vB)',
+                            color: '#333'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(0,0,0,0.1)'
+                            },
+                            ticks: {
+                                color: '#666'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            },
+                            ticks: {
+                                color: '#666'
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Graphique Lightning
+            const lightningCtx = document.getElementById('lightningChart').getContext('2d');
+            state.charts.lightning = new Chart(lightningCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Canaux Ouverts', 'Canaux Fermés', 'Capacité Utilisée', 'Capacité Libre'],
+                    datasets: [{
+                        data: [65, 15, 40, 60],
+                        backgroundColor: [
+                            '#00FFFF',
+                            '#00CCCC',
+                            '#00FF88',
+                            '#00AAFF'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                color: '#333',
+                                padding: 15
+                            }
+                        },
+                        title: {
+                            display: true,
+                            text: 'Statistiques du Réseau Lightning',
+                            color: '#333'
+                        }
+                    }
+                }
+            });
+
+            // Initialiser les autres graphiques
+            initializeFullMempoolChart();
+            initializeMiningChart();
+            initializeBlocksChart();
+        }
+
+        // Initialisation des graphiques du dashboard complet
+        function initializeDashboardCharts() {
+            // Graphique Mempool du dashboard
+            const dashboardMempoolCtx = document.getElementById('dashboardMempoolChart');
+            if (dashboardMempoolCtx) {
+                const ctx = dashboardMempoolCtx.getContext('2d');
+                state.charts.dashboardMempool = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: Array.from({length: 48}, (_, i) => `${i}h`),
+                        datasets: [
+                            {
+                                label: 'Taille Mempool (tx)',
+                                data: generateRandomData(48, 5000, 25000),
+                                borderColor: '#00FFFF',
+                                backgroundColor: 'rgba(0, 255, 255, 0.1)',
+                                borderWidth: 2,
+                                fill: true,
+                                tension: 0.4
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                grid: {
+                                    color: 'rgba(0,0,0,0.1)'
+                                },
+                                ticks: {
+                                    color: '#666'
+                                }
+                            },
+                            x: {
+                                grid: {
+                                    display: false
+                                },
+                                ticks: {
+                                    color: '#666'
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Graphique Frais du dashboard
+            const dashboardFeesCtx = document.getElementById('dashboardFeesChart');
+            if (dashboardFeesCtx) {
+                const ctx = dashboardFeesCtx.getContext('2d');
+                state.charts.dashboardFees = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['1-2', '3-4', '5-8', '9-16', '17-32', '33-64'],
+                        datasets: [{
+                            label: 'Transactions',
+                            data: generateRandomData(6, 500, 3000),
+                            backgroundColor: '#00FF88',
+                            borderColor: '#00CC66',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                grid: {
+                                    color: 'rgba(0,0,0,0.1)'
+                                },
+                                ticks: {
+                                    color: '#666'
+                                }
+                            },
+                            x: {
+                                grid: {
+                                    display: false
+                                },
+                                ticks: {
+                                    color: '#666'
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Graphique Difficulté du dashboard
+            const dashboardDifficultyCtx = document.getElementById('dashboardDifficultyChart');
+            if (dashboardDifficultyCtx) {
+                const ctx = dashboardDifficultyCtx.getContext('2d');
+                state.charts.dashboardDifficulty = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: Array.from({length: 24}, (_, i) => `${i*1000}`),
+                        datasets: [{
+                            label: 'Difficulté',
+                            data: generateRandomData(24, 70, 90),
+                            borderColor: '#00CCCC',
+                            backgroundColor: 'rgba(0, 204, 204, 0.1)',
+                            borderWidth: 2,
+                            fill: true,
+                            tension: 0.4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: false,
+                                grid: {
+                                    color: 'rgba(0,0,0,0.1)'
+                                },
+                                ticks: {
+                                    color: '#666'
+                                }
+                            },
+                            x: {
+                                grid: {
+                                    display: false
+                                },
+                                ticks: {
+                                    color: '#666'
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Graphique Mining du dashboard
+            const dashboardMiningCtx = document.getElementById('dashboardMiningChart');
+            if (dashboardMiningCtx) {
+                const ctx = dashboardMiningCtx.getContext('2d');
+                state.charts.dashboardMining = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Pool A', 'Pool B', 'Pool C', 'Pool D'],
+                        datasets: [{
+                            data: [40, 25, 20, 15],
+                            backgroundColor: [
+                                '#00FFFF',
+                                '#00CCCC',
+                                '#00FF88',
+                                '#00AAFF'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    color: '#333',
+                                    padding: 10
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Graphique Lightning du dashboard
+            const dashboardLightningCtx = document.getElementById('dashboardLightningChart');
+            if (dashboardLightningCtx) {
+                const ctx = dashboardLightningCtx.getContext('2d');
+                state.charts.dashboardLightning = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: Array.from({length: 12}, (_, i) => `M${i+1}`),
+                        datasets: [{
+                            label: 'Canaux (k)',
+                            data: generateRandomData(12, 70, 80),
+                            borderColor: '#00AAFF',
+                            backgroundColor: 'rgba(0, 170, 255, 0.1)',
+                            borderWidth: 2,
+                            fill: true,
+                            tension: 0.4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: false,
+                                grid: {
+                                    color: 'rgba(0,0,0,0.1)'
+                                },
+                                ticks: {
+                                    color: '#666'
+                                }
+                            },
+                            x: {
+                                grid: {
+                                    display: false
+                                },
+                                ticks: {
+                                    color: '#666'
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        }
+
+        // Remplir le tableau des derniers blocs
+        function populateRecentBlocks() {
+            debugLog("Début du remplissage du tableau des blocs récents");
+            
+            const tableBody = document.getElementById('recentBlocksTable');
+            if (!tableBody) {
+                debugLog("ERREUR: Tableau des blocs récents non trouvé");
+                return;
+            }
+            
+            debugLog("Tableau des blocs trouvé, vidage en cours");
+            // Vider le tableau
+            tableBody.innerHTML = '';
+            
+            // Générer des données de blocs récents
+            const pools = ['Foundry USA', 'AntPool', 'F2Pool', 'Binance Pool', 'ViaBTC', 'Braiins Pool'];
+            const blocks = Array.from({length: 15}, (_, i) => ({
+                height: state.data.blockHeight - i,
+                transactions: Math.floor(Math.random() * 2000) + 1000,
+                size: (Math.random() * 1.5 + 0.5).toFixed(2),
+                time: i === 0 ? 'Il y a quelques minutes' : `Il y a ${i * 10} minutes`,
+                pool: pools[Math.floor(Math.random() * pools.length)]
+            }));
+            
+            debugLog(`Génération de ${blocks.length} blocs terminée`);
+            
+            // Ajouter les lignes avec des styles améliorés
+            blocks.forEach((block, index) => {
+                const row = document.createElement('tr');
+                row.style.opacity = "0";
+                row.style.transform = "translateY(20px)";
+                row.style.transition = "all 0.3s ease";
+                
+                row.innerHTML = `
+                    <td class="block-height">#${block.height.toLocaleString()}</td>
+                    <td class="block-tx">${block.transactions.toLocaleString()}</td>
+                    <td class="block-size">${block.size} MB</td>
+                    <td class="block-time">${block.time}</td>
+                    <td class="block-pool">${block.pool}</td>
+                `;
+                
+                tableBody.appendChild(row);
+                
+                // Animation d'apparition progressive
+                setTimeout(() => {
+                    row.style.opacity = "1";
+                    row.style.transform = "translateY(0)";
+                }, index * 50);
+            });
+            
+            debugLog("Tableau des blocs rempli avec succès");
+        }
+
+        // Fonction pour obtenir la couleur d'un pool minier
+        function getPoolColor(pool) {
+            const poolColors = {
+                'Foundry USA': '#00FFFF',
+                'AntPool': '#00FF88',
+                'F2Pool': '#FF00FF',
+                'Binance Pool': '#FFAA00',
+                'ViaBTC': '#00AAFF',
+                'Braiins Pool': '#FF0055'
+            };
+            return poolColors[pool] || '#E0F7FF';
+        }
+
+        // Graphique Mempool complet
+        function initializeFullMempoolChart() {
+            const fullMempoolCtx = document.getElementById('fullMempoolChart');
+            if (!fullMempoolCtx) return;
+            
+            const ctx = fullMempoolCtx.getContext('2d');
+            state.charts.fullMempool = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: Array.from({length: 48}, (_, i) => `${i}h`),
+                    datasets: [
+                        {
+                            label: 'Taille Mempool (tx)',
+                            data: generateRandomData(48, 5000, 25000),
+                            borderColor: '#00FFFF',
+                            backgroundColor: 'rgba(0, 255, 255, 0.1)',
+                            borderWidth: 2,
+                            fill: true,
+                            tension: 0.4
+                        },
+                        {
+                            label: 'Frais moyens (sat/vB)',
+                            data: generateRandomData(48, 5, 50),
+                            borderColor: '#00FF88',
+                            backgroundColor: 'rgba(0, 255, 136, 0.1)',
+                            borderWidth: 2,
+                            fill: false,
+                            tension: 0.4,
+                            yAxisID: 'y1'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top',
+                            labels: {
+                                color: '#333'
+                            }
+                        },
+                        title: {
+                            display: true,
+                            text: 'Mempool Temps Réel - Vue Complète (48h)',
+                            color: '#333'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(0,0,0,0.1)'
+                            },
+                            ticks: {
+                                color: '#666'
+                            },
+                            title: {
+                                display: true,
+                                text: 'Taille Mempool (tx)',
+                                color: '#666'
+                            }
+                        },
+                        y1: {
+                            beginAtZero: true,
+                            grid: {
+                                drawOnChartArea: false
+                            },
+                            ticks: {
+                                color: '#666'
+                            },
+                            position: 'right',
+                            title: {
+                                display: true,
+                                text: 'Frais (sat/vB)',
+                                color: '#666'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            },
+                            ticks: {
+                                color: '#666'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Graphique Activité Miniére
+        function initializeMiningChart() {
+            const miningCtx = document.getElementById('miningChart');
+            if (!miningCtx) return;
+            
+            const ctx = miningCtx.getContext('2d');
+            state.charts.mining = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Pool A', 'Pool B', 'Pool C', 'Pool D', 'Pool E', 'Pool F'],
+                    datasets: [{
+                        label: 'Blocs Minés (7j)',
+                        data: generateRandomData(6, 5, 25),
+                        backgroundColor: [
+                            '#00FFFF',
+                            '#00CCCC',
+                            '#00FF88',
+                            '#00AAFF',
+                            '#FF00FF',
+                            '#FF0055'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        title: {
+                            display: true,
+                            text: 'Distribution des Blocs par Pool Minier (7 derniers jours)',
+                            color: '#333'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(0,0,0,0.1)'
+                            },
+                            ticks: {
+                                color: '#666',
+                                stepSize: 5
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            },
+                            ticks: {
+                                color: '#666'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Graphique Derniers Blocs
+        function initializeBlocksChart() {
+            const blocksCtx = document.getElementById('blocksChart');
+            if (!blocksCtx) return;
+            
+            const ctx = blocksCtx.getContext('2d');
+            state.charts.blocks = new Chart(ctx, {
+                type: 'scatter',
+                data: {
+                    datasets: [{
+                        label: 'Blocs',
+                        data: Array.from({length: 20}, (_, i) => ({
+                            x: i,
+                            y: Math.random() * 2 + 1,
+                            r: Math.random() * 10 + 5
+                        })),
+                        backgroundColor: '#00FFFF',
+                        borderColor: '#00CCCC',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        title: {
+                            display: true,
+                            text: 'Taille des 20 Derniers Blocs (MB)',
+                            color: '#333'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(0,0,0,0.1)'
+                            },
+                            ticks: {
+                                color: '#666'
+                            },
+                            title: {
+                                display: true,
+                                text: 'Taille (MB)',
+                                color: '#666'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            },
+                            ticks: {
+                                color: '#666'
+                            },
+                            title: {
+                                display: true,
+                                text: 'Bloc Récent → Ancien',
+                                color: '#666'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Mise à jour des métriques
+        function updateMetrics() {
+            document.getElementById('blockHeight').textContent = `#${state.data.blockHeight.toLocaleString()}`;
+            document.getElementById('bitcoinPrice').textContent = `$${state.data.bitcoinPrice.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+            document.getElementById('mempoolCount').textContent = state.data.mempoolCount.toLocaleString();
+            document.getElementById('fastFee').textContent = `${state.data.fastFee} sat/vB`;
+            
+            // Mise à jour de l'horodatage
+            state.lastUpdate = new Date();
+            document.getElementById('lastUpdate').textContent = state.lastUpdate.toLocaleTimeString();
+        }
+
+        // Mise à jour des graphiques avec de nouvelles données
+        function updateCharts() {
+            debugLog("Mise à jour des graphiques");
+            
+            // Mise à jour du graphique Mempool
+            if (state.charts.mempool) {
+                state.charts.mempool.data.datasets[0].data = generateRandomData(24, 5000, 20000);
+                state.charts.mempool.update();
+            }
+            
+            // Mise à jour du graphique Difficulté
+            if (state.charts.difficulty) {
+                state.charts.difficulty.data.datasets[0].data = generateRandomData(12, 70, 85);
+                state.charts.difficulty.update();
+            }
+            
+            // Mise à jour du graphique Frais
+            if (state.charts.fees) {
+                state.charts.fees.data.datasets[0].data = generateRandomData(9, 100, 5000);
+                state.charts.fees.update();
+            }
+            
+            // Mise à jour du graphique Lightning
+            if (state.charts.lightning) {
+                state.charts.lightning.data.datasets[0].data = [
+                    Math.floor(Math.random() * 20) + 60,
+                    Math.floor(Math.random() * 10) + 10,
+                    Math.floor(Math.random() * 20) + 30,
+                    Math.floor(Math.random() * 20) + 50
+                ];
+                state.charts.lightning.update();
+            }
+            
+            // Mise à jour du graphique Mempool complet
+            if (state.charts.fullMempool) {
+                state.charts.fullMempool.data.datasets[0].data = generateRandomData(48, 5000, 25000);
+                state.charts.fullMempool.data.datasets[1].data = generateRandomData(48, 5, 50);
+                state.charts.fullMempool.update();
+            }
+            
+            // Mise à jour du graphique Mining
+            if (state.charts.mining) {
+                state.charts.mining.data.datasets[0].data = generateRandomData(6, 5, 25);
+                state.charts.mining.update();
+            }
+            
+            // Mise à jour du graphique Blocs
+            if (state.charts.blocks) {
+                state.charts.blocks.data.datasets[0].data = Array.from({length: 20}, (_, i) => ({
+                    x: i,
+                    y: Math.random() * 2 + 1,
+                    r: Math.random() * 10 + 5
+                }));
+                state.charts.blocks.update();
+            }
+            
+            // Mise à jour des graphiques du dashboard
+            if (state.charts.dashboardMempool) {
+                state.charts.dashboardMempool.data.datasets[0].data = generateRandomData(48, 5000, 25000);
+                state.charts.dashboardMempool.update();
+            }
+            
+            if (state.charts.dashboardFees) {
+                state.charts.dashboardFees.data.datasets[0].data = generateRandomData(6, 500, 3000);
+                state.charts.dashboardFees.update();
+            }
+            
+            if (state.charts.dashboardDifficulty) {
+                state.charts.dashboardDifficulty.data.datasets[0].data = generateRandomData(24, 70, 90);
+                state.charts.dashboardDifficulty.update();
+            }
+            
+            if (state.charts.dashboardMining) {
+                state.charts.dashboardMining.data.datasets[0].data = [
+                    Math.floor(Math.random() * 10) + 35,
+                    Math.floor(Math.random() * 10) + 20,
+                    Math.floor(Math.random() * 10) + 15,
+                    Math.floor(Math.random() * 10) + 10
+                ];
+                state.charts.dashboardMining.update();
+            }
+            
+            if (state.charts.dashboardLightning) {
+                state.charts.dashboardLightning.data.datasets[0].data = generateRandomData(12, 70, 80);
+                state.charts.dashboardLightning.update();
+            }
+            
+            debugLog("Graphiques mis à jour avec succès");
+        }
+
+        // Rafraîchissement des données
+        function refreshData() {
+            debugLog("Rafraîchissement des données");
+            
+            // Afficher l'indicateur de rafraîchissement
+            const refreshIndicator = document.getElementById('refreshIndicator');
+            refreshIndicator.classList.add('active');
+            
+            // Simuler une mise à jour des données
+            state.data.blockHeight += 1;
+            state.data.bitcoinPrice = 61427.85 + (Math.random() * 1000 - 500);
+            state.data.mempoolCount = 10000 + Math.floor(Math.random() * 10000);
+            state.data.fastFee = 10 + Math.floor(Math.random() * 20);
+            
+            updateMetrics();
+            updateCharts();
+            populateRecentBlocks();
+            
+            // Masquer l'indicateur de rafraîchissement après un court délai
+            setTimeout(() => {
+                refreshIndicator.classList.remove('active');
+            }, 1000);
+            
+            // Afficher une notification
+            showNotification('Données mises à jour', 'success');
+        }
+
+        // Démarrer l'auto-refresh
+        function startAutoRefresh() {
+            debugLog(`Démarrage de l'auto-refresh avec une fréquence de ${state.refreshInterval/1000} secondes`);
+            
+            state.refreshTimer = setInterval(() => {
+                debugLog("Rafraîchissement automatique des données");
+                refreshData();
+            }, state.refreshInterval);
+        }
+
+        // Arrêter l'auto-refresh
+        function stopAutoRefresh() {
+            debugLog("Arrêt de l'auto-refresh");
+            
+            if (state.refreshTimer) {
+                clearInterval(state.refreshTimer);
+                state.refreshTimer = null;
+            }
+        }
+
+        // Basculer l'auto-refresh
+        function toggleAutoRefresh() {
+            state.autoRefresh = !state.autoRefresh;
+            const statusElement = document.getElementById('autoRefreshStatus');
+            
+            if (state.autoRefresh) {
+                statusElement.textContent = `Activé (${state.refreshInterval/1000}s)`;
+                statusElement.classList.add('positive');
+                showNotification(`Auto-refresh activé (${state.refreshInterval/1000}s)`, 'success');
+                startAutoRefresh();
+            } else {
+                statusElement.textContent = 'Désactivé';
+                statusElement.classList.remove('positive');
+                showNotification('Auto-refresh désactivé', 'warning');
+                stopAutoRefresh();
+            }
+        }
+
+        // Mise à jour des horodatages
+        function updateTimestamps() {
+            const now = new Date();
+            document.querySelectorAll('.browser-footer span').forEach(element => {
+                element.textContent = now.toLocaleTimeString();
+            });
+        }
+
+        // Génération de données aléatoires pour les graphiques
+        function generateRandomData(count, min, max) {
+            return Array.from({length: count}, () => Math.floor(Math.random() * (max - min + 1)) + min);
+        }
+
+        // Affichage des notifications
+        function showNotification(message, type) {
+            // Créer l'élément de notification
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 12px 16px;
+                border-radius: 6px;
+                color: white;
+                font-weight: bold;
+                z-index: 1000;
+                box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+                animation: slideIn 0.3s ease;
+                font-family: 'Orbitron', sans-serif;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                font-size: 12px;
+                max-width: 250px;
+            `;
+            
+            if (type === 'success') {
+                notification.style.background = 'linear-gradient(45deg, #00FF88, #00CC66)';
+                notification.style.boxShadow = '0 0 20px rgba(0, 255, 136, 0.5)';
+            } else if (type === 'warning') {
+                notification.style.background = 'linear-gradient(45deg, #FFAA00, #FF8800)';
+                notification.style.boxShadow = '0 0 20px rgba(255, 170, 0, 0.5)';
+            } else {
+                notification.style.background = 'linear-gradient(45deg, #FF0055, #CC0044)';
+                notification.style.boxShadow = '0 0 20px rgba(255, 0, 85, 0.5)';
+            }
+            
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            // Supprimer la notification après 3 secondes
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+
+        // Ajout des animations CSS pour les notifications
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOut {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
